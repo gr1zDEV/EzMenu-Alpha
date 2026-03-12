@@ -36,6 +36,10 @@ public final class MenuRenderer {
                     continue;
                 }
 
+                if (item.hasShowIfPlaceholder() && !matchesPlaceholderVisibility(player, item.showIfPlaceholder())) {
+                    continue;
+                }
+
                 ItemStack stack = ItemBuilder.of(item.material())
                         .name(ColorUtil.color(placeholderService.parse(player, item.name())))
                         .lore(item.lore().stream().map(line -> ColorUtil.color(placeholderService.parse(player, line))).toList())
@@ -46,5 +50,36 @@ public final class MenuRenderer {
             player.openInventory(inventory);
             return true;
         }).orElse(false);
+    }
+
+    private boolean matchesPlaceholderVisibility(Player player, String showIfPlaceholder) {
+        String condition = showIfPlaceholder.trim();
+        String delimiter = condition.contains("==") ? "==" : "=";
+        int delimiterIndex = condition.indexOf(delimiter);
+
+        if (delimiterIndex > -1) {
+            String placeholder = condition.substring(0, delimiterIndex).trim();
+            String expectedValue = condition.substring(delimiterIndex + delimiter.length()).trim();
+
+            String parsedValue = placeholderService.parse(player, placeholder).trim();
+            return parsedValue.equalsIgnoreCase(stripWrappingQuotes(expectedValue));
+        }
+
+        String parsedValue = placeholderService.parse(player, condition).trim();
+        return parsedValue.equalsIgnoreCase("true")
+                || parsedValue.equalsIgnoreCase("yes")
+                || parsedValue.equals("1")
+                || parsedValue.equalsIgnoreCase("on");
+    }
+
+    private String stripWrappingQuotes(String value) {
+        if (value.length() >= 2) {
+            if ((value.startsWith("\"") && value.endsWith("\""))
+                    || (value.startsWith("'") && value.endsWith("'"))) {
+                return value.substring(1, value.length() - 1);
+            }
+        }
+
+        return value;
     }
 }

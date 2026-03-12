@@ -13,6 +13,7 @@ menus:
         actions:
           - "player-command:ezmenu reload"
         permission: "ezmenu.reload"
+        show-if-placeholder: ""
         no-permission-hidden: false
         deny-message: "&cYou cannot reload EzMenu."
         sound: "BLOCK_NOTE_BLOCK_PLING"
@@ -26,6 +27,7 @@ menus:
         actions:
           - "open:main"
         permission: ""
+        show-if-placeholder: ""
         no-permission-hidden: false
         deny-message: ""
         sound: "UI_BUTTON_CLICK"

@@ -13,6 +13,7 @@ menus:
         actions:
           - "open:server"
         permission: ""
+        show-if-placeholder: ""
         no-permission-hidden: false
         deny-message: "&cYou cannot use this."
         sound: "UI_BUTTON_CLICK"
@@ -26,5 +27,6 @@ menus:
         actions:
           - "open:admin"
         permission: "ezmenu.admin"
+        show-if-placeholder: ""
         no-permission-hidden: true
         sound: "UI_BUTTON_CLICK"
