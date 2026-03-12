@@ -78,6 +78,7 @@ public final class MenuConfigLoader {
                     List<String> lore = section.getStringList("lore");
                     List<String> actions = section.getStringList("actions");
                     String itemPermission = section.getString("permission", "");
+                    String showIfPlaceholder = section.getString("show-if-placeholder", "");
                     boolean noPermissionHidden = section.getBoolean("no-permission-hidden", false);
                     String denyMessage = section.getString("deny-message", "");
                     String sound = section.getString("sound", "");
@@ -90,6 +91,7 @@ public final class MenuConfigLoader {
                             lore == null ? Collections.emptyList() : new ArrayList<>(lore),
                             actions == null ? Collections.emptyList() : new ArrayList<>(actions),
                             itemPermission,
+                            showIfPlaceholder,
                             noPermissionHidden,
                             denyMessage,
                             sound

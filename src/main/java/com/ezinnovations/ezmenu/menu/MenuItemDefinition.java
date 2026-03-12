@@ -12,11 +12,16 @@ public record MenuItemDefinition(
         List<String> lore,
         List<String> actions,
         String permission,
+        String showIfPlaceholder,
         boolean noPermissionHidden,
         String denyMessage,
         String sound
 ) {
     public boolean hasPermission() {
         return permission != null && !permission.isBlank();
+    }
+
+    public boolean hasShowIfPlaceholder() {
+        return showIfPlaceholder != null && !showIfPlaceholder.isBlank();
     }
 }
