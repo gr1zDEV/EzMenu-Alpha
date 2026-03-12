@@ -1,0 +1,8 @@
+debug: false
+hooks:
+  placeholderapi: true
+storage:
+  sqlite:
+    enabled: false
+behavior:
+  deny-on-missing-menu: true

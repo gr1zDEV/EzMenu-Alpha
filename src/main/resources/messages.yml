@@ -1,0 +1,7 @@
+messages:
+  no-permission: "&cYou do not have permission."
+  menu-not-found: "&cMenu '&f{menu}&c' was not found."
+  player-only: "&cOnly players can use this command."
+  reload-success: "&aEzMenu configuration reloaded successfully."
+  invalid-usage: "&cUsage: {usage}"
+  menu-list-header: "&aAvailable menus:"

@@ -1,0 +1,32 @@
+menus:
+  server:
+    title: "&8Server Menu"
+    size: 27
+    permission: ""
+    items:
+      spawn:
+        slot: 11
+        material: ENDER_PEARL
+        name: "&bGo to Spawn"
+        lore:
+          - "&7Teleports you to spawn"
+        actions:
+          - "player-command:spawn"
+          - "close"
+        permission: ""
+        no-permission-hidden: false
+        deny-message: ""
+        sound: "ENTITY_ENDERMAN_TELEPORT"
+
+      website:
+        slot: 15
+        material: BOOK
+        name: "&eServer Info"
+        lore:
+          - "&7View info and links"
+        actions:
+          - "message:&aVisit our website: &fexample.com"
+        permission: ""
+        no-permission-hidden: false
+        deny-message: ""
+        sound: "UI_BUTTON_CLICK"
