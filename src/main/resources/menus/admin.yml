@@ -1,0 +1,31 @@
+menus:
+  admin:
+    title: "&8Admin Menu"
+    size: 27
+    permission: "ezmenu.admin"
+    items:
+      reload:
+        slot: 11
+        material: CLOCK
+        name: "&6Reload EzMenu"
+        lore:
+          - "&7Reload plugin configs"
+        actions:
+          - "player-command:ezmenu reload"
+        permission: "ezmenu.reload"
+        no-permission-hidden: false
+        deny-message: "&cYou cannot reload EzMenu."
+        sound: "BLOCK_NOTE_BLOCK_PLING"
+
+      back:
+        slot: 22
+        material: ARROW
+        name: "&aBack"
+        lore:
+          - "&7Return to main menu"
+        actions:
+          - "open:main"
+        permission: ""
+        no-permission-hidden: false
+        deny-message: ""
+        sound: "UI_BUTTON_CLICK"

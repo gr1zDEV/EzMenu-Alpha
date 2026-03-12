@@ -1,0 +1,24 @@
+name: EzMenu
+version: '${version}'
+main: com.ezinnovations.ezmenu.EzMenu
+api-version: '1.20'
+authors: [ezinnovations]
+folia-supported: true
+softdepend: [PlaceholderAPI, Geyser-Spigot, floodgate]
+commands:
+  ezmenu:
+    description: Main EzMenu command
+    usage: /ezmenu <open|reload|list>
+    aliases: [emenu]
+  menu:
+    description: Shortcut to open menus
+    usage: /menu open <menu>
+permissions:
+  ezmenu.open:
+    default: true
+  ezmenu.reload:
+    default: op
+  ezmenu.list:
+    default: true
+  ezmenu.admin:
+    default: op

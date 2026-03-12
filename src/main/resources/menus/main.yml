@@ -1,0 +1,30 @@
+menus:
+  main:
+    title: "&8Main Menu"
+    size: 27
+    permission: ""
+    items:
+      server:
+        slot: 11
+        material: COMPASS
+        name: "&aServer Menu"
+        lore:
+          - "&7Open the server options"
+        actions:
+          - "open:server"
+        permission: ""
+        no-permission-hidden: false
+        deny-message: "&cYou cannot use this."
+        sound: "UI_BUTTON_CLICK"
+
+      admin:
+        slot: 15
+        material: REDSTONE
+        name: "&cAdmin Menu"
+        lore:
+          - "&7Administrative options"
+        actions:
+          - "open:admin"
+        permission: "ezmenu.admin"
+        no-permission-hidden: true
+        sound: "UI_BUTTON_CLICK"
