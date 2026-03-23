@@ -154,7 +154,7 @@ EzMenu supports these item actions:
 - `console-command:<command>` - Runs a command as the server console.
 - `message:<text>` - Sends a message to the player.
 - `close` - Closes the inventory.
-- `refresh` - Re-renders the current menu so placeholders, visibility checks, and permission-gated items update immediately.
+- `refresh` - Re-renders the current menu on the next server tick so placeholder-driven visibility and text update after click actions run.
 
 ### Action examples
 
