@@ -1,8 +1,9 @@
 package com.ezinnovations.ezmenu.menu;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.List;
 
 public final class MenuDefinition {
 
@@ -10,7 +11,7 @@ public final class MenuDefinition {
     private final String title;
     private final int size;
     private final String permission;
-    private final Map<Integer, MenuItemDefinition> itemsBySlot = new LinkedHashMap<>();
+    private final List<MenuItemDefinition> items = new ArrayList<>();
 
     public MenuDefinition(String id, String title, int size, String permission) {
         this.id = id;
@@ -20,7 +21,7 @@ public final class MenuDefinition {
     }
 
     public void addItem(MenuItemDefinition item) {
-        itemsBySlot.put(item.slot(), item);
+        items.add(item);
     }
 
     public String id() {
@@ -40,10 +41,6 @@ public final class MenuDefinition {
     }
 
     public Collection<MenuItemDefinition> items() {
-        return itemsBySlot.values();
-    }
-
-    public MenuItemDefinition getBySlot(int slot) {
-        return itemsBySlot.get(slot);
+        return Collections.unmodifiableList(items);
     }
 }

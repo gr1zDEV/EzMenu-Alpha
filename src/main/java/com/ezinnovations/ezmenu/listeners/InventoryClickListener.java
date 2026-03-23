@@ -65,7 +65,7 @@ public final class InventoryClickListener implements Listener {
             return;
         }
 
-        MenuItemDefinition item = menu.getBySlot(slot);
+        MenuItemDefinition item = holder.getVisibleItem(slot);
         if (item == null) {
             return;
         }
