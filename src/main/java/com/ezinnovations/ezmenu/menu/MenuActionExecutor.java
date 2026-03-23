@@ -5,8 +5,8 @@ import com.ezinnovations.ezmenu.config.ConfigManager;
 import com.ezinnovations.ezmenu.service.PlaceholderService;
 import com.ezinnovations.ezmenu.service.SoundService;
 import com.ezinnovations.ezmenu.util.ColorUtil;
+import com.ezinnovations.ezmenu.util.SafeExecution;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
@@ -18,6 +18,7 @@ public final class MenuActionExecutor {
     private final PlaceholderService placeholderService;
     private final SoundService soundService;
     private final ConfigManager configManager;
+    private final SafeExecution safeExecution;
 
     public MenuActionExecutor(EzMenu plugin,
                               MenuRegistry menuRegistry,
@@ -29,6 +30,7 @@ public final class MenuActionExecutor {
         this.placeholderService = placeholderService;
         this.soundService = soundService;
         this.configManager = configManager;
+        this.safeExecution = new SafeExecution(plugin);
     }
 
     public void execute(Player player, String currentMenuId, MenuItemDefinition item, MenuRenderer renderer) {
@@ -63,18 +65,18 @@ public final class MenuActionExecutor {
                     player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", value)));
                 }
             }
-            case "player-command" -> dispatchCommand(player, stripLeadingSlash(value));
-            case "console-command" -> dispatchCommand(Bukkit.getConsoleSender(), stripLeadingSlash(value));
+            case "player-command" -> dispatchPlayerCommand(player, stripLeadingSlash(value));
+            case "console-command" -> dispatchConsoleCommand(stripLeadingSlash(value));
             case "message" -> player.sendMessage(ColorUtil.color(value));
             case "close" -> player.closeInventory();
             case "refresh" -> {
                 if (!currentMenuId.isBlank()) {
-                    player.getScheduler().runDelayed(plugin, scheduledTask -> {
+                    safeExecution.runForPlayerLater(player, () -> {
                         boolean reopened = renderer.openMenu(player, currentMenuId);
                         if (!reopened) {
                             player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", currentMenuId)));
                         }
-                    }, null, configManager.getRefreshDelayTicks());
+                    }, configManager.getRefreshDelayTicks());
                 }
             }
             default -> {
@@ -85,12 +87,20 @@ public final class MenuActionExecutor {
         }
     }
 
-    private void dispatchCommand(CommandSender sender, String command) {
+    private void dispatchPlayerCommand(Player player, String command) {
         if (command.isBlank()) {
             return;
         }
 
-        Bukkit.getGlobalRegionScheduler().execute(plugin, () -> Bukkit.dispatchCommand(sender, command));
+        safeExecution.dispatchPlayerCommand(player, command);
+    }
+
+    private void dispatchConsoleCommand(String command) {
+        if (command.isBlank()) {
+            return;
+        }
+
+        safeExecution.dispatchConsoleCommand(command);
     }
 
     private String stripLeadingSlash(String command) {
