@@ -14,6 +14,7 @@ EzMenu loads menu definitions from the `plugins/EzMenu/menus/` folder and turns 
 - Optional hidden items when a player lacks permission.
 - Optional placeholder-based visibility rules.
 - Optional per-item click sounds.
+- Optional per-button click cooldowns.
 
 Out of the box, the plugin includes example menus for a main hub, server navigation, and admin actions.
 
@@ -26,6 +27,7 @@ Out of the box, the plugin includes example menus for a main hub, server navigat
 - **Placeholder-based conditional items** using `show-if-placeholder`.
 - **PlaceholderAPI support** for menu titles, item names, lore, messages, and actions when the hook is enabled.
 - **Built-in sounds** for item clicks.
+- **Per-button cooldowns** to prevent spam clicks.
 - **Reload command** for updating config and menu files without restarting the server.
 - **Tab completion** for commands and known menu IDs.
 - **Folia-friendly metadata** in the plugin descriptor.
@@ -122,6 +124,8 @@ items:
     no-permission-hidden: false
     deny-message: "&cYou cannot use this."
     sound: "UI_BUTTON_CLICK"
+    cooldown: 1.5
+    cooldown-message: "&cWait &f{seconds}s&c before clicking this again."
 ```
 
 - `slot` - Zero-based inventory slot.
@@ -134,6 +138,8 @@ items:
 - `no-permission-hidden` - If `true`, the item is not shown to players without the permission.
 - `deny-message` - Message shown when a player clicks without permission, if the item is visible.
 - `sound` - Sound played when clicked.
+- `cooldown` - Optional per-player cooldown for that button in seconds. Decimals are supported.
+- `cooldown-message` - Optional message shown while the button is still on cooldown. Supports `{seconds}`, `{cooldown}`, and `{item}`.
 
 ## Supported click actions
 
@@ -167,6 +173,24 @@ If PlaceholderAPI is installed and enabled in `config.yml`, EzMenu parses placeh
 - Click actions
 
 The plugin also replaces `{player}` inside actions with the player's username.
+
+### Button cooldowns
+
+Buttons can define their own cooldown so players cannot spam them. Cooldowns are tracked per player and per button, so one player triggering a button does not block everyone else, and different buttons can have different cooldowns.
+
+Example:
+
+```yml
+cooldown: 2.5
+cooldown-message: "&cWait &f{seconds}s&c before using this again."
+```
+
+Behavior:
+
+- `cooldown` values less than or equal to `0` disable the cooldown.
+- `cooldown-message` is optional; if omitted, EzMenu uses the default `button-cooldown` message from `messages.yml`.
+- `{seconds}` and `{cooldown}` are replaced with the remaining cooldown time.
+- `{item}` is replaced with the item ID from the menu file.
 
 ### Conditional visibility with `show-if-placeholder`
 

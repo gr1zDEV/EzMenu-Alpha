@@ -5,3 +5,4 @@ messages:
   reload-success: "&aEzMenu configuration reloaded successfully."
   invalid-usage: "&cUsage: {usage}"
   menu-list-header: "&aAvailable menus:"
+  button-cooldown: "&cPlease wait &f{seconds}s&c before using this button again."
