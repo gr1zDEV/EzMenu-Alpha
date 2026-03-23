@@ -68,10 +68,12 @@ public final class MenuActionExecutor {
             case "close" -> player.closeInventory();
             case "refresh" -> {
                 if (!currentMenuId.isBlank()) {
-                    boolean reopened = renderer.openMenu(player, currentMenuId);
-                    if (!reopened) {
-                        player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", currentMenuId)));
-                    }
+                    plugin.getServer().getScheduler().runTask(plugin, () -> {
+                        boolean reopened = renderer.openMenu(player, currentMenuId);
+                        if (!reopened) {
+                            player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", currentMenuId)));
+                        }
+                    });
                 }
             }
             default -> {
