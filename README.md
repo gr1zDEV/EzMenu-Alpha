@@ -104,7 +104,7 @@ menus:
     items: {}
 ```
 
-- `title` - Inventory title. Supports color codes and placeholders.
+- `title` - Inventory title. Supports legacy color codes, hex colors like `&#08FB7B`, and placeholders.
 - `size` - Inventory size. Must be a multiple of 9, from 9 to 54.
 - `permission` - Optional permission required to open the menu.
 - `items` - Item definitions keyed by item ID.
@@ -133,8 +133,8 @@ items:
 
 - `slot` - Zero-based inventory slot.
 - `material` - Bukkit/Paper material name.
-- `name` - Item display name.
-- `lore` - List of lore lines.
+- `name` - Item display name. Supports legacy color codes and hex colors like `&#08FB7B`.
+- `lore` - List of lore lines. Each line supports legacy color codes and hex colors like `&#08FB7B`.
 - `actions` - Actions executed when clicked.
 - `permission` - Optional permission for that item.
 - `show-if-placeholder` - Optional visibility rule based on placeholder output.
@@ -177,6 +177,8 @@ If PlaceholderAPI is installed and enabled in `config.yml`, EzMenu parses placeh
 - Item lore
 - Deny messages
 - Click actions
+
+EzMenu supports both traditional `&a`-style colors and hex colors such as `&#08FB7B` in menu titles, item names, lore, messages, and action text.
 
 The plugin also replaces `{player}` inside actions with the player's username.
 
