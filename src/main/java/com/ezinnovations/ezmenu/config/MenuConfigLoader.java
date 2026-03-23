@@ -115,7 +115,7 @@ public final class MenuConfigLoader {
             return Material.STONE;
         }
 
-        Material material = Material.matchMaterial(value.trim(), true);
+        Material material = Material.matchMaterial(value.trim());
         if (material == null) {
             plugin.getLogger().warning("Invalid material '" + value + "'. Using STONE.");
             return Material.STONE;
