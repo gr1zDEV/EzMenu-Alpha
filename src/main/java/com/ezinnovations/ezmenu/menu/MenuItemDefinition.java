@@ -16,6 +16,7 @@ public record MenuItemDefinition(
         boolean noPermissionHidden,
         String denyMessage,
         String sound,
+        boolean glow,
         long cooldownMillis,
         String cooldownMessage
 ) {

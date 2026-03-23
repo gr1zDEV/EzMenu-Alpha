@@ -36,6 +36,15 @@ public final class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder glow(boolean glow) {
+        ItemMeta meta = stack.getItemMeta();
+        if (meta != null) {
+            meta.setEnchantmentGlintOverride(glow);
+            stack.setItemMeta(meta);
+        }
+        return this;
+    }
+
     public ItemStack build() {
         return stack;
     }

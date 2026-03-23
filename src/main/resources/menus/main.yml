@@ -17,6 +17,7 @@ menus:
         no-permission-hidden: false
         deny-message: "&cYou cannot use this."
         sound: "UI_BUTTON_CLICK"
+        glow: true
 
       admin:
         slot: 15
