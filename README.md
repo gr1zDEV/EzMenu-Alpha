@@ -214,6 +214,7 @@ Behavior:
 
 - `placeholder==value` or `placeholder=value` checks for an exact value match.
 - A single placeholder is treated as true when it resolves to `true`, `yes`, `1`, or `on`.
+- Multiple items can share the same slot; when more than one is visible, the last visible item defined for that slot is the one rendered and clicked.
 
 ## Main configuration
 

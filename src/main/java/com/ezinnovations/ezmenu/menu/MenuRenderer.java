@@ -29,7 +29,8 @@ public final class MenuRenderer {
             }
 
             String title = placeholderService.parse(player, menu.title());
-            Inventory inventory = Bukkit.createInventory(new MenuHolder(menu.id()), menu.size(), ColorUtil.color(title));
+            MenuHolder holder = new MenuHolder(menu.id());
+            Inventory inventory = Bukkit.createInventory(holder, menu.size(), ColorUtil.color(title));
 
             for (MenuItemDefinition item : menu.items()) {
                 if (item.hasPermission() && !player.hasPermission(item.permission()) && item.noPermissionHidden()) {
@@ -46,6 +47,7 @@ public final class MenuRenderer {
                         .glow(item.glow())
                         .build();
                 inventory.setItem(item.slot(), stack);
+                holder.trackVisibleItem(item);
             }
 
             player.openInventory(inventory);
