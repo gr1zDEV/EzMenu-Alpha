@@ -9,7 +9,7 @@ EzMenu loads menu definitions from the `plugins/EzMenu/menus/` folder and turns 
 - A custom title and inventory size.
 - A menu-level permission.
 - Item slots, materials, names, and lore.
-- Click actions such as opening another menu, running player commands, running console commands, sending messages, and closing the inventory.
+- Click actions such as opening another menu, refreshing the current menu, running player commands, running console commands, sending messages, and closing the inventory.
 - Per-item permissions.
 - Optional hidden items when a player lacks permission.
 - Optional placeholder-based visibility rules.
@@ -154,6 +154,7 @@ EzMenu supports these item actions:
 - `console-command:<command>` - Runs a command as the server console.
 - `message:<text>` - Sends a message to the player.
 - `close` - Closes the inventory.
+- `refresh` - Re-renders the current menu so placeholders, visibility checks, and permission-gated items update immediately.
 
 ### Action examples
 
@@ -164,6 +165,7 @@ actions:
   - "console-command:give {player} diamond 1"
   - "message:&aWelcome, {player}!"
   - "close"
+  - "refresh"
 ```
 
 ## Placeholder support

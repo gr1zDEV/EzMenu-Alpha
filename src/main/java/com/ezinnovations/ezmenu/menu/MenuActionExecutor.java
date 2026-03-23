@@ -30,7 +30,7 @@ public final class MenuActionExecutor {
         this.configManager = configManager;
     }
 
-    public void execute(Player player, MenuItemDefinition item, MenuRenderer renderer) {
+    public void execute(Player player, String currentMenuId, MenuItemDefinition item, MenuRenderer renderer) {
         if (item.hasPermission() && !player.hasPermission(item.permission())) {
             if (!item.denyMessage().isBlank()) {
                 player.sendMessage(ColorUtil.color(placeholderService.parse(player, item.denyMessage())));
@@ -46,11 +46,11 @@ public final class MenuActionExecutor {
 
         for (String rawAction : item.actions()) {
             String parsedAction = placeholderService.parse(player, rawAction).replace("{player}", player.getName());
-            executeSingle(player, parsedAction, renderer);
+            executeSingle(player, currentMenuId, parsedAction, renderer);
         }
     }
 
-    private void executeSingle(Player player, String action, MenuRenderer renderer) {
+    private void executeSingle(Player player, String currentMenuId, String action, MenuRenderer renderer) {
         String[] split = action.split(":", 2);
         String type = split[0].toLowerCase(Locale.ROOT);
         String value = split.length > 1 ? split[1] : "";
@@ -66,6 +66,14 @@ public final class MenuActionExecutor {
             case "console-command" -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), stripLeadingSlash(value));
             case "message" -> player.sendMessage(ColorUtil.color(value));
             case "close" -> player.closeInventory();
+            case "refresh" -> {
+                if (!currentMenuId.isBlank()) {
+                    boolean reopened = renderer.openMenu(player, currentMenuId);
+                    if (!reopened) {
+                        player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", currentMenuId)));
+                    }
+                }
+            }
             default -> {
                 if (configManager.isDebugEnabled()) {
                     plugin.getLogger().warning("Unknown action: " + action);
