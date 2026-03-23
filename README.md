@@ -15,6 +15,7 @@ EzMenu loads menu definitions from the `plugins/EzMenu/menus/` folder and turns 
 - Optional placeholder-based visibility rules.
 - Optional per-item click sounds.
 - Optional per-button click cooldowns.
+- Optional per-item glow effects.
 
 Out of the box, the plugin includes example menus for a main hub, server navigation, and admin actions.
 
@@ -28,6 +29,7 @@ Out of the box, the plugin includes example menus for a main hub, server navigat
 - **PlaceholderAPI support** for menu titles, item names, lore, messages, and actions when the hook is enabled.
 - **Built-in sounds** for item clicks.
 - **Per-button cooldowns** to prevent spam clicks.
+- **Optional glowing items** for highlighting important buttons.
 - **Reload command** for updating config and menu files without restarting the server.
 - **Tab completion** for commands and known menu IDs.
 - **Folia-friendly metadata** in the plugin descriptor.
@@ -124,6 +126,7 @@ items:
     no-permission-hidden: false
     deny-message: "&cYou cannot use this."
     sound: "UI_BUTTON_CLICK"
+    glow: true
     cooldown: 1.5
     cooldown-message: "&cWait &f{seconds}s&c before clicking this again."
 ```
@@ -138,6 +141,7 @@ items:
 - `no-permission-hidden` - If `true`, the item is not shown to players without the permission.
 - `deny-message` - Message shown when a player clicks without permission, if the item is visible.
 - `sound` - Sound played when clicked.
+- `glow` - If `true`, forces the enchantment glint effect on that menu item.
 - `cooldown` - Optional per-player cooldown for that button in seconds. Decimals are supported.
 - `cooldown-message` - Optional message shown while the button is still on cooldown. Supports `{seconds}`, `{cooldown}`, and `{item}`.
 

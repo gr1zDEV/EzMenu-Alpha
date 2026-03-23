@@ -82,6 +82,7 @@ public final class MenuConfigLoader {
                     boolean noPermissionHidden = section.getBoolean("no-permission-hidden", false);
                     String denyMessage = section.getString("deny-message", "");
                     String sound = section.getString("sound", "");
+                    boolean glow = section.getBoolean("glow", false);
                     long cooldownMillis = parseCooldownMillis(menuId, itemId, section.get("cooldown"));
                     String cooldownMessage = section.getString("cooldown-message", "");
 
@@ -97,6 +98,7 @@ public final class MenuConfigLoader {
                             noPermissionHidden,
                             denyMessage,
                             sound,
+                            glow,
                             cooldownMillis,
                             cooldownMessage
                     );

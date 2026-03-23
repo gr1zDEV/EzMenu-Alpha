@@ -43,6 +43,7 @@ public final class MenuRenderer {
                 ItemStack stack = ItemBuilder.of(item.material())
                         .name(ColorUtil.color(placeholderService.parse(player, item.name())))
                         .lore(item.lore().stream().map(line -> ColorUtil.color(placeholderService.parse(player, line))).toList())
+                        .glow(item.glow())
                         .build();
                 inventory.setItem(item.slot(), stack);
             }
