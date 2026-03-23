@@ -6,6 +6,7 @@ import com.ezinnovations.ezmenu.service.PlaceholderService;
 import com.ezinnovations.ezmenu.service.SoundService;
 import com.ezinnovations.ezmenu.util.ColorUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Locale;
@@ -62,8 +63,8 @@ public final class MenuActionExecutor {
                     player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", value)));
                 }
             }
-            case "player-command" -> player.performCommand(stripLeadingSlash(value));
-            case "console-command" -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), stripLeadingSlash(value));
+            case "player-command" -> dispatchCommand(player, stripLeadingSlash(value));
+            case "console-command" -> dispatchCommand(Bukkit.getConsoleSender(), stripLeadingSlash(value));
             case "message" -> player.sendMessage(ColorUtil.color(value));
             case "close" -> player.closeInventory();
             case "refresh" -> {
@@ -82,6 +83,14 @@ public final class MenuActionExecutor {
                 }
             }
         }
+    }
+
+    private void dispatchCommand(CommandSender sender, String command) {
+        if (command.isBlank()) {
+            return;
+        }
+
+        Bukkit.getGlobalRegionScheduler().execute(plugin, () -> Bukkit.dispatchCommand(sender, command));
     }
 
     private String stripLeadingSlash(String command) {
