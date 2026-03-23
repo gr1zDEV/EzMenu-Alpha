@@ -73,7 +73,7 @@ public final class MenuActionExecutor {
                         if (!reopened) {
                             player.sendMessage(ColorUtil.color(configManager.getMessage("menu-not-found").replace("{menu}", currentMenuId)));
                         }
-                    }, null, 1L);
+                    }, null, configManager.getRefreshDelayTicks());
                 }
             }
             default -> {

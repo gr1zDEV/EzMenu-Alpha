@@ -53,6 +53,10 @@ public final class ConfigManager {
         return plugin.getConfig().getBoolean("hooks.placeholderapi", true);
     }
 
+    public long getRefreshDelayTicks() {
+        return Math.max(1L, plugin.getConfig().getLong("behavior.refresh-delay-ticks", 2L));
+    }
+
     public MenuConfigLoader getMenuConfigLoader() {
         return menuConfigLoader;
     }

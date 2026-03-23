@@ -154,7 +154,7 @@ EzMenu supports these item actions:
 - `console-command:<command>` - Runs a command as the server console.
 - `message:<text>` - Sends a message to the player.
 - `close` - Closes the inventory.
-- `refresh` - Re-renders the current menu on the next server tick so placeholder-driven visibility and text update after click actions run.
+- `refresh` - Re-renders the current menu after the configured `behavior.refresh-delay-ticks` delay (default `2`) so placeholder-driven visibility and text can update after click actions and delayed placeholder state changes run.
 
 ### Action examples
 
@@ -231,6 +231,7 @@ storage:
     enabled: false
 behavior:
   deny-on-missing-menu: true
+  refresh-delay-ticks: 2
 ```
 
 ### Config notes
@@ -239,6 +240,7 @@ behavior:
 - `hooks.placeholderapi` - Turns PlaceholderAPI parsing on or off.
 - `storage.sqlite.enabled` - Present in the config, but SQLite storage is not currently wired into menu behavior.
 - `behavior.deny-on-missing-menu` - Present in the config, but not currently used by command or menu logic.
+- `behavior.refresh-delay-ticks` - Controls how many ticks the `refresh` action waits before reopening the menu. Increase it if another plugin updates placeholders a tick or two after the click.
 
 ## Example default menus
 

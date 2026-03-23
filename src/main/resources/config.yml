@@ -6,3 +6,4 @@ storage:
     enabled: false
 behavior:
   deny-on-missing-menu: true
+  refresh-delay-ticks: 2
