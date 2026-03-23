@@ -82,6 +82,8 @@ public final class MenuConfigLoader {
                     boolean noPermissionHidden = section.getBoolean("no-permission-hidden", false);
                     String denyMessage = section.getString("deny-message", "");
                     String sound = section.getString("sound", "");
+                    long cooldownMillis = parseCooldownMillis(menuId, itemId, section.get("cooldown"));
+                    String cooldownMessage = section.getString("cooldown-message", "");
 
                     MenuItemDefinition item = new MenuItemDefinition(
                             itemId,
@@ -94,7 +96,9 @@ public final class MenuConfigLoader {
                             showIfPlaceholder,
                             noPermissionHidden,
                             denyMessage,
-                            sound
+                            sound,
+                            cooldownMillis,
+                            cooldownMessage
                     );
                     definition.addItem(item);
                 }
@@ -116,5 +120,34 @@ public final class MenuConfigLoader {
         }
 
         return material;
+    }
+
+    private long parseCooldownMillis(String menuId, String itemId, Object rawCooldown) {
+        if (rawCooldown == null) {
+            return 0L;
+        }
+
+        double cooldownSeconds;
+        if (rawCooldown instanceof Number number) {
+            cooldownSeconds = number.doubleValue();
+        } else {
+            String value = rawCooldown.toString().trim();
+            if (value.isEmpty()) {
+                return 0L;
+            }
+
+            try {
+                cooldownSeconds = Double.parseDouble(value);
+            } catch (NumberFormatException exception) {
+                plugin.getLogger().warning("Invalid cooldown for menu " + menuId + ", item=" + itemId + ". Using 0.");
+                return 0L;
+            }
+        }
+
+        if (cooldownSeconds <= 0D) {
+            return 0L;
+        }
+
+        return Math.round(cooldownSeconds * 1000D);
     }
 }

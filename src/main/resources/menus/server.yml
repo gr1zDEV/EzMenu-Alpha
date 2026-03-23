@@ -10,6 +10,7 @@ menus:
         name: "&bGo to Spawn"
         lore:
           - "&7Teleports you to spawn"
+          - "&8Cooldown: 2.5 seconds"
         actions:
           - "player-command:spawn"
           - "close"
@@ -18,6 +19,8 @@ menus:
         no-permission-hidden: false
         deny-message: ""
         sound: "ENTITY_ENDERMAN_TELEPORT"
+        cooldown: 2.5
+        cooldown-message: "&cSpawn is on cooldown for another &f{seconds}s&c."
 
       website:
         slot: 15

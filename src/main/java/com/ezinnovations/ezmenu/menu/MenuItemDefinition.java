@@ -15,7 +15,9 @@ public record MenuItemDefinition(
         String showIfPlaceholder,
         boolean noPermissionHidden,
         String denyMessage,
-        String sound
+        String sound,
+        long cooldownMillis,
+        String cooldownMessage
 ) {
     public boolean hasPermission() {
         return permission != null && !permission.isBlank();
@@ -23,5 +25,13 @@ public record MenuItemDefinition(
 
     public boolean hasShowIfPlaceholder() {
         return showIfPlaceholder != null && !showIfPlaceholder.isBlank();
+    }
+
+    public boolean hasCooldown() {
+        return cooldownMillis > 0L;
+    }
+
+    public boolean hasCooldownMessage() {
+        return cooldownMessage != null && !cooldownMessage.isBlank();
     }
 }

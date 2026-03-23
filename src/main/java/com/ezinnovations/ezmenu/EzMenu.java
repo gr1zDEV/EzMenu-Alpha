@@ -6,6 +6,7 @@ import com.ezinnovations.ezmenu.listeners.InventoryClickListener;
 import com.ezinnovations.ezmenu.menu.MenuActionExecutor;
 import com.ezinnovations.ezmenu.menu.MenuRegistry;
 import com.ezinnovations.ezmenu.menu.MenuRenderer;
+import com.ezinnovations.ezmenu.service.ButtonCooldownService;
 import com.ezinnovations.ezmenu.service.PlaceholderService;
 import com.ezinnovations.ezmenu.service.SoundService;
 import org.bukkit.command.PluginCommand;
@@ -17,6 +18,7 @@ public final class EzMenu extends JavaPlugin {
     private MenuRegistry menuRegistry;
     private PlaceholderService placeholderService;
     private SoundService soundService;
+    private ButtonCooldownService buttonCooldownService;
     private MenuRenderer menuRenderer;
     private MenuActionExecutor menuActionExecutor;
 
@@ -28,6 +30,7 @@ public final class EzMenu extends JavaPlugin {
         this.placeholderService = new PlaceholderService(this, configManager);
         this.soundService = new SoundService(this);
         this.menuRegistry = new MenuRegistry();
+        this.buttonCooldownService = new ButtonCooldownService();
 
         reloadPluginState();
 
@@ -35,7 +38,7 @@ public final class EzMenu extends JavaPlugin {
         this.menuRenderer = new MenuRenderer(menuRegistry, placeholderService, configManager);
 
         getServer().getPluginManager().registerEvents(
-                new InventoryClickListener(menuRegistry, menuRenderer, menuActionExecutor, configManager),
+                new InventoryClickListener(menuRegistry, menuRenderer, menuActionExecutor, configManager, placeholderService, buttonCooldownService),
                 this
         );
 
