@@ -76,7 +76,7 @@ public final class InventoryClickListener implements Listener {
             return;
         }
 
-        actionExecutor.execute(player, item, menuRenderer);
+        actionExecutor.execute(player, menu.id(), item, menuRenderer);
     }
 
     private String resolveCooldownMessage(Player player, MenuItemDefinition item, long remainingMillis) {
