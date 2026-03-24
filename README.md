@@ -30,6 +30,7 @@ Out of the box, the plugin includes example menus for a main hub, server navigat
 - **Built-in sounds** for item clicks.
 - **Per-button cooldowns** to prevent spam clicks.
 - **Optional glowing items** for highlighting important buttons.
+- **Switch button type** with built-in per-player on/off state tracking.
 - **Reload command** for updating config and menu files without restarting the server.
 - **Tab completion** for commands and known menu IDs.
 - **Folia-friendly metadata** in the plugin descriptor.
@@ -121,6 +122,17 @@ items:
       - "&7Open the server options"
     actions:
       - "open:server"
+    type: "normal"
+    switch:
+      default-on: false
+      on:
+        name: "&aEnabled"
+        lore: []
+        actions: []
+      off:
+        name: "&cDisabled"
+        lore: []
+        actions: []
     permission: ""
     show-if-placeholder: ""
     no-permission-hidden: false
@@ -136,6 +148,11 @@ items:
 - `name` - Item display name. Supports legacy color codes and hex colors like `&#08FB7B`.
 - `lore` - List of lore lines. Each line supports legacy color codes and hex colors like `&#08FB7B`.
 - `actions` - Actions executed when clicked.
+- `type` - `normal` (default) or `switch`.
+- `switch.default-on` - Default state for switch buttons if the player has not toggled yet.
+- `switch.on.name` / `switch.off.name` - Optional per-state display names.
+- `switch.on.lore` / `switch.off.lore` - Optional per-state lore overrides.
+- `switch.on.actions` / `switch.off.actions` - Optional per-state click actions (fallbacks to `actions` if omitted).
 - `permission` - Optional permission for that item.
 - `show-if-placeholder` - Optional visibility rule based on placeholder output.
 - `no-permission-hidden` - If `true`, the item is not shown to players without the permission.
@@ -155,6 +172,8 @@ EzMenu supports these item actions:
 - `message:<text>` - Sends a message to the player.
 - `close` - Closes the inventory.
 - `refresh` - Re-renders the current menu after the configured `behavior.refresh-delay-ticks` delay (default `2`) so placeholder-driven visibility and text can update after click actions and delayed placeholder state changes run.
+
+For `type: switch` items, EzMenu automatically toggles the player's stored state on each click, executes the matching `switch.on.actions` or `switch.off.actions`, and re-renders the menu so the lore/name updates immediately.
 
 ### Action examples
 

@@ -31,3 +31,34 @@ menus:
         show-if-placeholder: ""
         no-permission-hidden: true
         sound: "UI_BUTTON_CLICK"
+
+      pvp_toggle:
+        slot: 13
+        material: LEVER
+        name: "&ePvP Mode"
+        lore:
+          - "&7Click to toggle your PvP mode."
+        type: "switch"
+        switch:
+          default-on: false
+          on:
+            name: "&aPvP Mode: ON"
+            lore:
+              - "&7Your PvP toggle is currently &aenabled&7."
+              - "&eClick to disable."
+            actions:
+              - "player-command:pvp on"
+              - "message:&aPvP mode enabled."
+          off:
+            name: "&cPvP Mode: OFF"
+            lore:
+              - "&7Your PvP toggle is currently &cdisabled&7."
+              - "&eClick to enable."
+            actions:
+              - "player-command:pvp off"
+              - "message:&cPvP mode disabled."
+        permission: ""
+        show-if-placeholder: ""
+        no-permission-hidden: false
+        deny-message: ""
+        sound: "UI_BUTTON_CLICK"

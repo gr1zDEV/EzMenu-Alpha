@@ -11,6 +11,14 @@ public record MenuItemDefinition(
         String name,
         List<String> lore,
         List<String> actions,
+        String buttonType,
+        boolean switchDefaultOn,
+        String switchOnName,
+        String switchOffName,
+        List<String> switchOnLore,
+        List<String> switchOffLore,
+        List<String> switchOnActions,
+        List<String> switchOffActions,
         String permission,
         String showIfPlaceholder,
         boolean noPermissionHidden,
@@ -22,6 +30,25 @@ public record MenuItemDefinition(
 ) {
     public boolean hasPermission() {
         return permission != null && !permission.isBlank();
+    }
+
+    public boolean isSwitchButton() {
+        return buttonType != null && buttonType.equalsIgnoreCase("switch");
+    }
+
+    public String displayName(boolean switchOn) {
+        String switchName = switchOn ? switchOnName : switchOffName;
+        return switchName != null && !switchName.isBlank() ? switchName : name;
+    }
+
+    public List<String> displayLore(boolean switchOn) {
+        List<String> switchLore = switchOn ? switchOnLore : switchOffLore;
+        return switchLore != null && !switchLore.isEmpty() ? switchLore : lore;
+    }
+
+    public List<String> actionsForState(boolean switchOn) {
+        List<String> switchActions = switchOn ? switchOnActions : switchOffActions;
+        return switchActions != null && !switchActions.isEmpty() ? switchActions : actions;
     }
 
     public boolean hasShowIfPlaceholder() {
