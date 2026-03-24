@@ -9,6 +9,7 @@ import com.ezinnovations.ezmenu.menu.MenuRegistry;
 import com.ezinnovations.ezmenu.menu.MenuRenderer;
 import com.ezinnovations.ezmenu.service.ButtonCooldownService;
 import com.ezinnovations.ezmenu.service.PlaceholderService;
+import com.ezinnovations.ezmenu.service.SwitchStateService;
 import com.ezinnovations.ezmenu.util.ColorUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,19 +26,22 @@ public final class InventoryClickListener implements Listener {
     private final ConfigManager configManager;
     private final PlaceholderService placeholderService;
     private final ButtonCooldownService cooldownService;
+    private final SwitchStateService switchStateService;
 
     public InventoryClickListener(MenuRegistry menuRegistry,
                                   MenuRenderer menuRenderer,
                                   MenuActionExecutor actionExecutor,
                                   ConfigManager configManager,
                                   PlaceholderService placeholderService,
-                                  ButtonCooldownService cooldownService) {
+                                  ButtonCooldownService cooldownService,
+                                  SwitchStateService switchStateService) {
         this.menuRegistry = menuRegistry;
         this.menuRenderer = menuRenderer;
         this.actionExecutor = actionExecutor;
         this.configManager = configManager;
         this.placeholderService = placeholderService;
         this.cooldownService = cooldownService;
+        this.switchStateService = switchStateService;
     }
 
     @EventHandler
@@ -73,6 +77,13 @@ public final class InventoryClickListener implements Listener {
         ButtonCooldownService.CooldownStatus cooldownStatus = cooldownService.checkAndApply(player, menu.id(), item);
         if (!cooldownStatus.allowed()) {
             player.sendMessage(ColorUtil.color(resolveCooldownMessage(player, item, cooldownStatus.remainingMillis())));
+            return;
+        }
+
+        if (item.isSwitchButton()) {
+            boolean toggledOn = switchStateService.toggle(player, menu.id(), item);
+            actionExecutor.execute(player, menu.id(), item, menuRenderer, item.actionsForState(toggledOn));
+            menuRenderer.openMenu(player, menu.id());
             return;
         }
 

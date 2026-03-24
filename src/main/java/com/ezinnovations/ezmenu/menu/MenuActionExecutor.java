@@ -9,6 +9,7 @@ import com.ezinnovations.ezmenu.util.SafeExecution;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Locale;
 
 public final class MenuActionExecutor {
@@ -34,6 +35,14 @@ public final class MenuActionExecutor {
     }
 
     public void execute(Player player, String currentMenuId, MenuItemDefinition item, MenuRenderer renderer) {
+        execute(player, currentMenuId, item, renderer, item.actions());
+    }
+
+    public void execute(Player player,
+                        String currentMenuId,
+                        MenuItemDefinition item,
+                        MenuRenderer renderer,
+                        List<String> actions) {
         if (item.hasPermission() && !player.hasPermission(item.permission())) {
             if (!item.denyMessage().isBlank()) {
                 player.sendMessage(ColorUtil.color(placeholderService.parse(player, item.denyMessage())));
@@ -47,7 +56,7 @@ public final class MenuActionExecutor {
             soundService.play(player, item.sound());
         }
 
-        for (String rawAction : item.actions()) {
+        for (String rawAction : actions) {
             String parsedAction = placeholderService.parse(player, rawAction).replace("{player}", player.getName());
             executeSingle(player, currentMenuId, parsedAction, renderer);
         }

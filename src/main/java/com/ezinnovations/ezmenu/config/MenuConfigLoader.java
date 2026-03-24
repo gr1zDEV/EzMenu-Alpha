@@ -77,6 +77,14 @@ public final class MenuConfigLoader {
                     String name = section.getString("name", "&fItem");
                     List<String> lore = section.getStringList("lore");
                     List<String> actions = section.getStringList("actions");
+                    String buttonType = section.getString("type", "normal");
+                    boolean switchDefaultOn = section.getBoolean("switch.default-on", false);
+                    String switchOnName = section.getString("switch.on.name", "");
+                    String switchOffName = section.getString("switch.off.name", "");
+                    List<String> switchOnLore = section.getStringList("switch.on.lore");
+                    List<String> switchOffLore = section.getStringList("switch.off.lore");
+                    List<String> switchOnActions = section.getStringList("switch.on.actions");
+                    List<String> switchOffActions = section.getStringList("switch.off.actions");
                     String itemPermission = section.getString("permission", "");
                     String showIfPlaceholder = section.getString("show-if-placeholder", "");
                     boolean noPermissionHidden = section.getBoolean("no-permission-hidden", false);
@@ -93,6 +101,14 @@ public final class MenuConfigLoader {
                             name,
                             lore == null ? Collections.emptyList() : new ArrayList<>(lore),
                             actions == null ? Collections.emptyList() : new ArrayList<>(actions),
+                            buttonType,
+                            switchDefaultOn,
+                            switchOnName,
+                            switchOffName,
+                            switchOnLore == null ? Collections.emptyList() : new ArrayList<>(switchOnLore),
+                            switchOffLore == null ? Collections.emptyList() : new ArrayList<>(switchOffLore),
+                            switchOnActions == null ? Collections.emptyList() : new ArrayList<>(switchOnActions),
+                            switchOffActions == null ? Collections.emptyList() : new ArrayList<>(switchOffActions),
                             itemPermission,
                             showIfPlaceholder,
                             noPermissionHidden,
